@@ -6,7 +6,7 @@ const c = 5;
 
 // Pole trókąta o bokach ..., ... oraz ... wynosi ... .
 
-function heron (a, b, c) {
+function heron (a = 3, b = 4, c = 5) {
     if (a <= 0 || b <= 0 || c <= 0) {
         return 0;
     }
