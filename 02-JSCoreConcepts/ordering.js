@@ -3,19 +3,15 @@ const reverse = function(arr) {
     arr.forEach(item => arrReversed.push(item));
     arrReversed.reverse();
     return arrReversed;
-}
+};
 
 const sort = function(arr) {
-    arrSorted = [];
-    // ...
-    return arrSorted;
-}
+    return arr.sort();
+};
 
 const even = function(arr) {
-    let arrEven = [];
-    // ...
-    return arrEven;
-}
+    return arr.filter((number, index) => index % 2 === 0);
+};
 
 numbers = [8,3,2,1,5,4,6];
 console.log(numbers);
