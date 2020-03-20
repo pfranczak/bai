@@ -6,8 +6,29 @@
 	</head>
 	<body>
 		<script>
-			// a JavaScript code here ...
-			
+			function createTable () {
+				const table = document.createElement('table');
+				table.setAttribute('style', 'width: 300px; text-align: center; border: 1px solid black; border-collapse: collapse;');
+				const tbody = document.createElement('tbody');
+				table.appendChild(tbody);
+
+				for (let i = 0; i < 2; i++) {
+					const row = document.createElement('tr');
+					row.setAttribute('style', 'border: 1px solid black; border-collapse: collapse;');
+					for (let j = 0; j < 2; j++) {
+						const cell = document.createElement('td');
+						cell.setAttribute('style', 'border: 1px solid black; border-collapse: collapse; padding: 5px;');
+						cell.innerText = i * 2 + j + 1;
+						row.appendChild(cell);
+					}
+
+					tbody.appendChild(row);
+				}
+
+				document.body.appendChild(table);
+			}
+
+			createTable();
 		</script>
 	</body>
 </html>

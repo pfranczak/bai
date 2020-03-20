@@ -11,13 +11,18 @@
 	<form>
 		<p>University:<br><input type="text"></p>
 		<p>Address:<br><input type="text"></p>
-		<button type="button">Hint</button>
+		<button type="button" onclick="fillInputs()">Hint</button>
 	</form>
 
 	<script>
-		// a JavaScript code here ...
 		var university = "Cracow University of Economics";
 		var address = "Rakowicka 27, Krakow, POLAND";
+
+		function fillInputs() {
+			const inputs = document.getElementsByTagName('input');
+			inputs[0].value = university;
+			inputs[1].value = address;
+		}
 
 	</script>
 </body>

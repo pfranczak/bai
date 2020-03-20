@@ -19,13 +19,25 @@
 		Czarne chorągwie na śmierć prowadzą zastępy.<br>
 		Przeciw nim sterczy biała, wąska, zaostrzona,<br>
 		Jak głaz bodzący morze, reduta Ordona.</p>
-		
-		<textarea rows="15" cols="50"></textarea><br>
-		
+
+		<textarea rows="15" cols="50" onchange="countWords(this)"></textarea><br>
+
 		<script>
-			// a JavaScript code here ...
-			
+			let isTouched = false;
+			function countWords(element) {
+				if (!isTouched) {
+					isTouched = true;
+					setTimeout(() => {
+						const chars = element.value.length;
+						const words = element.value.split(' ').length;
+						const newEl = document.createElement('div');
+						newEl.innerText = `You typed ${words} words and ${chars} characters.`;
+						element.parentNode.insertBefore(newEl, element.nextElementSibling);
+					}, 30 * 10);
+				}
+			}
+
 		</script>
-		
+
 	</body>
 </html>

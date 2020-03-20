@@ -5,23 +5,53 @@
 		<meta charset="UTF-8">
 	</head>
 	<body>
-		<h1>Another Brick in the Wall</h1>
-		<h3>Pink Floyd</h3>
-		<p>We don't need no education<br>
+		<h1 onclick="event.preventDefault(); editTitle(this)">Another Brick in the Wall</h1>
+		<h3 onclick="event.preventDefault(); showDescription()">Pink Floyd</h3>
+		<p onclick="event.preventDefault(); makeItalic(this)" oncopy="event.preventDefault(); preventCoping()">We don't need no education<br>
 		We don't need no thought control<br>
 		No dark sarcasm in the classroom<br>
 		Teachers leave them kids alone<br>
 		Hey! Teachers! Leave them kids alone<br>
 		All in all it's just another brick in the wall<br>
 		All in all you're just another brick in the wall</p>
-		
-		<p style="visibility: hidden;">Pink Floyd were an English rock band formed in London.<br>
+
+		<p style="visibility: hidden;" onclick="event.preventDefault(); showImage(this)">Pink Floyd were an English rock band formed in London.<br>
 		They achieved international acclaim with their progressive<br>
 		and psychedelic music.</p>
-		
+
 		<script>
-			// a JavaScript code here ...
-			
+			function editTitle(element) {
+				if (element.innerText.indexOf('Part 2') === -1) {
+					element.innerText = element.innerText + ' (Part 2)';
+				}
+			}
+
+			function showDescription() {
+				const paragraphs = document.getElementsByTagName('p');
+				paragraphs[paragraphs.length - 1].removeAttribute('style');
+			}
+
+			function makeItalic(element) {
+				element.setAttribute('style', 'font-style: italic');
+			}
+
+			document.addEventListener('dblclick', function () {
+				document.body.setAttribute('style', 'background-color: yellow');
+			});
+
+			function preventCoping() {
+				alert('Copyright');
+			}
+
+			function showImage(element) {
+				if (document.getElementsByTagName('img').length > 0) {
+					return;
+				}
+				const img = document.createElement('img');
+				img.src = "https://upload.wikimedia.org/wikipedia/en/d/d6/Pink_Floyd_-_all_members.jpg";
+				element.parentNode.insertBefore(img, element.nextSibling)
+			}
+
 		</script>
 	</body>
 </html>
