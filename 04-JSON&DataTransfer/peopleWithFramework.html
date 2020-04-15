@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>People</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <style>
+        th {
+            text-transform: capitalize;
+        }
+
+        table {
+            text-align: center;
+            font-family: sans-serif, Arial;
+        }
+    </style>
+</head>
+<body>
+<button onclick="showPeople()">Show people</button>
+
+<script>
+    function showPeople() {
+        const method = 'GET';
+        const URL = 'people.json';
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            display(this);
+        };
+        xhr.open(method, URL);
+        xhr.send();
+    }
+
+    function display(r) {
+        if (r.readyState === 4 && r.status === 200) {
+            const data = JSON.parse(r.response);
+            const headers = Object.keys(data[0]);
+            let table = '<table id="people" class="display" style="width: 100%">';
+            table += '<thead><tr><th>#</th>';
+
+            for (let i = 0; i < headers.length; i++) {
+                table += `<th>${headers[i]}</th>`
+            }
+
+            table += '</tr></thead><tbody>';
+
+            for (let i = 0; i < data.length; i++) {
+                table += `<tr><td>${i + 1}</td>`;
+
+                headers.forEach((header) => {
+                    table += `<td>${data[i][header]}</td>`;
+                });
+
+                table += '</tr>';
+            }
+
+            table += '</tbody></table>';
+
+            $('body').html(table);
+
+            $('#people').DataTable();
+        }
+    }
+
+</script>
+</body>
+</html>

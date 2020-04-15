@@ -19,11 +19,10 @@
 				xhr.send();
 			}
 			function display(r){
-				console.log("Request state:", r.readyState);
-				console.log("Status:", r.status);
-				console.log("Status text:", r.statusText);
-				console.log("-----");
-			};
+				if (r.readyState === 4 && r.status === 200) {
+					console.log(JSON.parse(r.response));
+				}
+			}
 		</script>
 
 	</body>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>People</title>
+</head>
+<body>
+    <button onclick="showPeople()">Show people</button>
+    <div id="people"></div>
+    <script>
+        function showPeople() {
+                const method = 'GET';
+                const URL = 'people.json';
+                const xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function(){display(this);};
+                xhr.open(method, URL);
+                xhr.send();
+        }
+
+        function display(r){
+            if (r.readyState === 4 && r.status === 200) {
+                const data = JSON.parse(r.response);
+                const people = document.getElementById('people');
+
+                for (let i = 0; i < data.length; i++) {
+                    const man = document.createElement('div');
+                    man.innerText = `${i + 1}. ${data[i].name} ${data[i].surname.toUpperCase()}, ${data[i].country}`;
+                    people.appendChild(man);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

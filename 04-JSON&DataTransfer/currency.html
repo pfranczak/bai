@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Currency</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            text-align: center;
+            font-family: sans-serif, Arial;
+        }
+
+        th, td {
+            padding: 10px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <tr>
+        <th>
+            Waluta
+        </th>
+        <th>
+            Kod
+        </th>
+        <th>
+            Kurs
+        </th>
+    </tr>
+</table>
+<script>
+    function getCurrency() {
+        const method = 'GET';
+        const URL = 'http://api.nbp.pl/api/exchangerates/tables/a/?format=json';
+        const xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function () {
+            display(this);
+        };
+
+        xhr.open(method, URL);
+        xhr.send();
+    }
+
+    function display(r) {
+        const currencies = ['GBP', 'USD', 'EUR'];
+
+        if (r.readyState === 4 && r.status === 200) {
+            const data = JSON.parse(r.response)[0].rates.filter(({code}) => currencies.some(c => c === code));
+            prepareTable(data);
+        }
+    }
+
+    function prepareTable(data) {
+        const TITLES = ['currency', 'code', 'mid'];
+        const table = document.getElementsByTagName('table')[0];
+        for (let i = 0; i < data.length; i++) {
+            const tr = document.createElement('tr');
+
+            for (let j = 0; j < TITLES.length; j++) {
+                const cell = tr.insertCell(j);
+                cell.innerText = data[i][TITLES[j]];
+            }
+
+            table.appendChild(tr);
+        }
+    }
+
+    getCurrency();
+</script>
+</body>
+</html>
