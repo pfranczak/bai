@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gold Chart</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+</head>
+<body>
+<canvas id="goldLine" width="200" height="200"></canvas>
+
+<script>
+    function showChart() {
+        const method = 'GET';
+        const URL = 'http://api.nbp.pl/api/cenyzlota/last/10/?format=json';
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            display(this);
+        };
+        xhr.open(method, URL);
+        xhr.send();
+    }
+
+    function display(r) {
+        if (r.readyState === 4 && r.status === 200) {
+            const data = JSON.parse(r.response);
+
+            const ctx = document.getElementById('goldLine').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.map(({data}) => data),
+                    datasets: [
+                        {
+                            data: data.map(({cena}) => cena),
+                            label: 'Gold',
+                            fill: false,
+                            borderColor: 'gold'
+                        }
+                    ]
+                }
+            });
+        }
+    }
+
+    showChart();
+</script>
+</body>
+</html>
