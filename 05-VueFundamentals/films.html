@@ -1,42 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+    table {
+      text-align: center;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid black;
+      padding: 5px;
+    }
+  </style>
 </head>
 <body>
+  <div id="app">
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Year</th>
+          <th>Director</th>
+          <th>Budget</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="({title, year, director, budget}) in films">
+          <td>{{title}}</td>
+          <td>{{year}}</td>
+          <td>{{director}}</td>
+          <td>$ {{budget}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <script>
-    var app = new Vue({
-      el: '#app',
-      data: {
-        films: [
-          {
-            title: 'Avatar',
-            year: 2009,
-            director: 'James Cameron',
-            budget: 237000000
+      var app = new Vue({
+          el: '#app',
+          data: {
+              films: [
+                  {
+                      title: 'Avatar',
+                      year: 2009,
+                      director: 'James Cameron',
+                      budget: 237000000
+                  },
+                  {
+                      title: 'Pulp Fiction',
+                      year: 1994,
+                      director: 'Quentin Tarantino',
+                      budget: 8000000
+                  },
+                  {
+                      title: 'Pitch Black',
+                      year: 2000,
+                      director: 'David Twohy',
+                      budget: 23000000
+                  },
+                  {
+                      title: 'War and Peace',
+                      year: 1956,
+                      director: 'King Vidor',
+                      budget: 6000000
+                  }
+              ]
           },
-          {
-            title: 'Pulp Fiction',
-            year: 1994,
-            director: 'Quentin Tarantino',
-            budget: 8000000
-          },
-          {
-            title: 'Pitch Black',
-            year: 2000,
-            director: 'David Twohy',
-            budget: 23000000
-          },
-          {
-            title: 'War and Peace',
-            year: 1956,
-            director: 'King Vidor',
-            budget: 6000000
+          methods: {
+              prepareRows: function() {
+              }
           }
-        ] 
-        }
-      }
-    });
+      });
   </script>
 </body>
 </html>

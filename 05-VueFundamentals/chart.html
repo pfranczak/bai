@@ -1,37 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 </head>
 <body>
-  <script>
+<div id="app">
+  <canvas id="chart" width="200" height="200"></canvas>
+</div>
+<script>
     var app = new Vue({
-      el: '#app',
-      data: {
-        films: [
-          {
-            language: 'Python',
-            popularity: 25.95
-          },
-          {
-            language: 'Java',
-            popularity: 21.42
-          },
-          {
-            language: 'JavaScript',
-            popularity: 8.26
-          },
-          {
-            language: 'C#',
-            popularity: 7.62
-          },
-          {
-            language: 'Php',
-            popularity: 7.37
-          }
-        ] 
-      }
+        el: '#app',
+        data: {
+            languages: [
+                {
+                    language: 'Python',
+                    popularity: 25.95
+                },
+                {
+                    language: 'Java',
+                    popularity: 21.42
+                },
+                {
+                    language: 'JavaScript',
+                    popularity: 8.26
+                },
+                {
+                    language: 'C#',
+                    popularity: 7.62
+                },
+                {
+                    language: 'Php',
+                    popularity: 7.37
+                }
+            ]
+        },
+        computed: {
+            labels: function() {
+                return this.languages.map(({language}) => language);
+            },
+            data: function () {
+                return this.languages.map(({popularity}) => popularity);
+            }
+        },
+        methods: {
+            renderChart() {
+                const ctx = document.getElementById('chart');
+                const chart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        datasets: [{
+                            data: this.data,
+                            backgroundColor: ['red', 'yellow', 'green', 'orange', 'blue'],
+                        }],
+                        labels: this.labels
+                    },
+                    options: {
+                        cutoutPercentage: 50
+                    }
+                })
+            }
+        },
+        mounted() {
+            this.renderChart();
+        }
     });
-  </script>
+</script>
 </body>
 </html>

@@ -2,8 +2,29 @@
 <html>
 <head>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+    #app {
+      font-family: sans-serif, Arial;
+      font-size: 23px;
+      padding: 40px;
+      border: 1px solid #000;
+      display: flex;
+      width: 500px;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
+  <div id="app">
+      <div><b>{{company.toUpperCase()}}</b><div>
+        <div>{{address}}</div>
+        <div>{{postcode}} {{city}}</div>
+        <div>tel. {{landline}}, {{mobile}}</div>
+        <div><a :href="web">{{web}}</a></div>
+  </div>
   <script>
     var app = new Vue({
       el: '#app',
