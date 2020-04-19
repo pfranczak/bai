@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <drinks></drinks>
+</div>
+
+<script>
+    Vue.component('drinks', {
+        template: `<div v-bind:style="{display: 'flex', flexDirection: 'column', alignItems: 'center', fontFamily: 'cursive'}">
+              <button @click="getDrink"
+                      v-bind:style="{padding: '10px', fontSize: '15px', borderRadius: '10px', backgroundColor: '#FD1E1E', color: '#fff', marginBottom: '20px'}"
+              >Get random drink!</button>
+              <div v-if="!!strDrink" v-bind:style="{display: 'flex', flexDirection: 'column', alignItems: 'center'}">
+                <img v-bind:src="strDrinkThumb"
+                     v-bind:alt="strDrink"
+                     height="300"
+                     width="300"
+                     v-bind:style="{borderRadius: '5px'}"
+                />
+                <h2>{{strDrink}}</h2>
+                <h3>{{strCategory}} - {{strAlcoholic}}</h3>
+                <div v-bind:style="{display: 'flex'}">
+                  <div v-bind:style="{width: '300px', textAlign: 'center'}">
+                    <h3>Ingredients:</h3>
+                    <div v-for="i in strIngredients">
+                     {{i}}
+                    </div>
+                  </div>
+                  <div v-bind:style="{width: '300px', textAlign: 'center'}">
+                    <h3>Instructions:</h3>
+                    <p>{{strInstructions}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>`,
+        data() {
+            return {
+                strDrink: '',
+                strCategory: '',
+                strAlcoholic: '',
+                strInstructions: '',
+                strDrinkThumb: '',
+                strIngredients: []
+            }
+        },
+        methods: {
+            getDrink: function () {
+                fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
+                    .then(res => res.json())
+                    .then(({drinks}) => {
+                        const {strDrink, strCategory, strAlcoholic, strInstructions, strDrinkThumb, ...rest} = drinks[0];
+                        this.strDrink = strDrink;
+                        this.strCategory = strCategory;
+                        this.strAlcoholic = strAlcoholic;
+                        this.strInstructions = strInstructions;
+                        this.strDrinkThumb = strDrinkThumb;
+                        const ingredients = [];
+
+                        for (const [key, value] of Object.entries(rest)) {
+                            if (key.indexOf('strIngredient') !== -1 && !!value) {
+                                ingredients.push(`${value}: ${rest['strMeasure' + key[key.length - 1]]}`)
+                            }
+                        }
+
+                        this.strIngredients = ingredients;
+                    });
+            }
+        }
+    });
+
+    new Vue({
+        el: '#app'
+    });
+</script>
+</body>
+</html>

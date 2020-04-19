@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>electivecourses</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+      #app {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <input type="checkbox" id="subject1" value="subject1" v-model="subjects">
+        <label for="subject1">Subject 1</label>
+      </div>
+      <div>
+        <input type="checkbox" id="subject2" value="subject2" v-model="subjects">
+        <label for="subject2">Subject 2</label>
+      </div>
+      <div>
+        <input type="checkbox" id="subject3" value="subject3" v-model="subjects">
+        <label for="subject3">Subject 3</label>
+      </div>
+      <div>
+        <input type="checkbox" id="subject4" value="subject4" v-model="subjects">
+        <label for="subject4">Subject 4</label>
+      </div>
+      <div>
+        <input type="checkbox" id="subject5" value="subject5" v-model="subjects">
+        <label for="subject5">Subject 5</label>
+      </div>
+      <br/>
+      <div>Selected subjects: <b>{{subjects.length}}</b>/5</div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                subjects: []
+            }
+        });
+    </script>
+  </body>
+</html>

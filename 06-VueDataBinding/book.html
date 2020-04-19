@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<style>
+  span {
+    width: 150px;
+    display: inline-block;
+  }
+</style>
+<body>
+<div id="app">
+  <form v-on:submit.prevent="onSubmit">
+    <div>
+      <span>Title</span>
+      <input type="text" v-model.trim="title">
+    </div>
+    <div>
+      <span>Author's first name</span>
+      <input type="text" v-model.trim="firstname">
+    </div>
+    <div>
+      <span>Author's last name</span>
+      <input type="text" v-model.trim="lastname">
+    </div>
+    <button>Save</button>
+  </form>
+</div>
+  <script>
+      var app = new Vue({
+          el: '#app',
+          data: {
+              title: '',
+              firstname: '',
+              lastname: ''
+          },
+          methods: {
+              onSubmit () {
+                  console.log(this.title + ' | ' + this.firstname + ' ' + this.lastname);
+              }
+          }
+      });
+  </script>
+
+</body>
+</html>

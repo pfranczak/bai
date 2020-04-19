@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CV</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+    div {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>CV FORM</h1>
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" id="name" v-model="formData.name">
+    </div>
+    <div>
+     <label for="surname">Surname:</label>
+      <input type="text" id="surname" v-model="formData.surname">
+    </div>
+    <div>
+      <span>Gender</span>
+      <input type="radio" id="m" value="male" v-model="formData.gender"> <label for="m">Male</label>
+      <input type="radio" id="f" value="female" v-model="formData.gender"> <label for="f">Female</label>
+    </div>
+    <div>
+      <span>Education:</span>
+      <select v-model="formData.education">
+        <option disabled value="">Choose one:</option>
+        <option>None</option>
+        <option>Primary</option>
+        <option>Secondary</option>
+        <option>Higher</option>
+      </select>
+    </div>
+    <div>
+      <span>Skills:</span>
+      <div>
+        <input type="checkbox" id="computerskills" value="computerskills" v-model="formData.skills">
+        <label for="computerskills">Computer skills</label>
+      </div>
+      <div>
+        <input type="checkbox" id="drive" value="driverlicense" v-model="formData.skills">
+        <label for="drive">Driver license</label>
+      </div>
+      <div>
+        <input type="checkbox" id="crea" value="creativity" v-model="formData.skills">
+        <label for="crea">Creativity</label>
+      </div>
+      <div>
+        <input type="checkbox" id="tw" value="teamwork" v-model="formData.skills">
+        <label for="tw">Team work</label>
+      </div>
+    </div>
+    <button @click="save">Save</button>
+    <button @click="load">Load</button>
+  </div>
+  <script>
+      var app = new Vue({
+          el: '#app',
+          data: {
+              formData: {
+                  name: '',
+                  surname: '',
+                  gender: '',
+                  education: '',
+                  skills: []
+              }
+          },
+          methods: {
+              save: function() {
+                  const dataToSave = JSON.stringify(this.formData);
+                  localStorage.setItem('formData', dataToSave);
+              },
+              load: function () {
+                  this.formData = JSON.parse(localStorage.getItem('formData'));
+              }
+          }
+      });
+  </script>
+</body>
+</html>

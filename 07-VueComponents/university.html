@@ -1,12 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
+  <div id="app">
+    <university-info/>
+  </div>
 
-  <h1>Cracow University of Economics</h1>
-  <p>31-510 Kraków, Rakowicka 27, POLAND</p>
+  <script>
+      Vue.component('university-info', {
+          template: '<div>' +
+              '<h1>Cracow University of Economics</h1>\n' +
+              '<p>31-510 Kraków, Rakowicka 27, POLAND</p>' +
+              '</div>'
+      });
 
+      new Vue({
+          el: '#app'
+      });
+  </script>
 </body>
 </html>

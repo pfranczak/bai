@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+</head>
+<body>
+<div id="app">
+  <chart v-bind:values="[10,33,99]" label="Example" v-bind:labels="['First', 'Second', 'Third']"></chart>
+</div>
+
+<script>
+    Vue.component('chart', {
+        template: `<canvas ref="chart" width="200" height="200"></canvas>`,
+        props: {
+            values: {
+                type: Array,
+                default: []
+            },
+            label: {
+                type: String,
+                default: ''
+            },
+            labels: {
+                type: Array,
+                default: []
+            }
+        },
+        methods: {
+            renderChart() {
+                const ctx = this.$refs.chart;
+                const chart = new Chart(ctx, {
+                    type: 'pie',
+                    label: this.label,
+                    data: {
+                        datasets: [{
+                            data: this.values,
+                        }],
+                        labels: this.labels
+                    },
+                })
+            }
+        },
+        mounted() {
+            this.renderChart();
+        }
+    });
+
+    new Vue({
+        el: '#app'
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <film title="The Avengers" director="Joss Whedon" year="2012"></film>
+  <film title="The Shawshank Redemption" director="Frank Darabont" year="1994"></film>
+  <film title="Who Am I" director="Baran bo Odar" year="2014"></film>
+</div>
+
+<script>
+    Vue.component('film', {
+        template: '<div>' +
+            '<h1>{{title}} ({{year}})</h1>\n' +
+            '<h2>{{director}}</h2>' +
+            '</div>',
+        props: ['title', 'director', 'year']
+    });
+
+    new Vue({
+        el: '#app'
+    });
+</script>
+</body>
+</html>
